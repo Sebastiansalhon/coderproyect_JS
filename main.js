@@ -33,7 +33,7 @@ ingredientesIngresados.forEach((ingrediente)=>{
     alert(`El ingrediente ${ingrediente} no esta disponible.`);
   }
   
-});
+}); 
 
 alert(`Tus ingredientes son ${textoIngredientes}`)
 
