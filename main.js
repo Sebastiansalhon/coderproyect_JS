@@ -1,60 +1,68 @@
-let precio = 280
+const precioCarne = 280;
+const precioVeggie = 5000;
+const precioPorIngrediente = 25;
 let ingrediente;
+const ingredientesDisponibles = [
+  "Huevo",
+  "Morron",
+  "Panceta",
+  "Lechuga",
+  "Tomate",
+  "Queso",
+  "Queso Vegano",
+  "Cebolla"
+];
+const mensajeIngredientes = "Ingrese los ingredientes que desea separados por comas Ej:(Huevo,Morron): \nHuevo\nCebolla\nMorron\nLechuga\nTomate\nQueso\nQueso Vegano";
+
+let name = prompt("Premaremos tu hamburgesa... ¿Cómo te llamas?"); 
+
+
+ingrediente = mostrarMensajeIngredientes();
+let ingredientesIngresados = ingrediente.split(','); // array
 
 
 
+let textoIngredientes = '';
 
-let name = prompt("Premaremos tu hamburgesa... ¿Cómo te llamas?");
-let cantidadIngredientes = parseInt(
-  prompt(name+" Cuantos ingredientes desea?(En números, máximo 3)")
-);
+ingredientesIngresados.forEach((ingrediente)=>{
+  ingrediente = ingrediente.trim();
+  ingrediente = ingrediente.charAt(0).toUpperCase() + ingrediente.slice(1);
+  if(ingredientesDisponibles.includes(ingrediente)){
+    textoIngredientes += '\n' + ingrediente;
+  }else{
+    alert(`El ingrediente ${ingrediente} no esta disponible.`);
+  }
+  
+});
 
+alert(`Tus ingredientes son ${textoIngredientes}`)
 
-switch (cantidadIngredientes) {
-  case 1:
-    alert("Elegiste 1 ingrediente")
-    break;
-
-  case 2:
-    alert("Elegiste 2 ingredientes")
-    break;
-
-    case 3:
-    alert("Elegiste 3 ingredientes")
-    break;
-
-    default:
-        alert("Sin ingredientes extras")
+let veggie = confirm("Desea carne vegana?")
+if (veggie){
+    alert(`Tu hamburgesa se esta preparando. \nTu hamburguesa Veggie tiene los siguientes ingredientes: \n${textoIngredientes} `);
+}
+else{
+  alert(`Tu hamburguesa de 100gr de carne se esta preparando con los siguientes ingredientes: \n${textoIngredientes}`);
 }
 
 
+let precioPorIngredientes = ingredientesIngresados.length * precioPorIngrediente
 
-if (cantidadIngredientes==1) {
-     ingrediente = prompt("Ingresa el ingrediente deseado. (huevo, panceta, cebolla, morron, lechuga, tomate, queso o queso vegano.)")
-}else if (cantidadIngredientes==2) {
-    ingrediente = prompt("Ingresa tus 2 ingredientes (huevo, panceta, cebolla, morron, lechuga, tomate, queso o queso vegano.")
-}else{
-    ingrediente = prompt("Ingresa tus ingredientes (huevo, panceta, cebolla, morron, lechuga, tomate, queso o queso vegano.")
+
+
+alert("El precio de la hamburgesa sería: $ "+calcularTotal(precioPorIngredientes,veggie))
+
+//Funciones
+function mostrarMensajeIngredientes(){
+  return prompt(mensajeIngredientes)
 }
 
-alert("Tus ingredientes son: "+ingrediente)
-
-let cambioCarne = prompt("Desea hamburgesa vegana? (SI/NO)")
-
-if (cambioCarne=="SI") {
-    let carne = "doble hamburgesa vegana"
-    alert ("Tu hamburgesa se está haciendo y quedará así: Pan, "+carne+" con tu eleccion de ingredientes: "+ingrediente)
-
-}else{
-    let carne = "2 carnes de 100gr c/u"
-    alert ("Tu hamburgesa se está haciendo y quedará así: Pan, "+carne+" con tu eleccion de ingredientes: "+ingrediente)
+function calcularTotal(precioPorIngredientes, esVeggie) {
+  let total = precioPorIngredientes;
+  if (esVeggie) {
+    total += precioVeggie;
+  }else{
+    total += precioCarne;
+  }
+  return total;
 }
-
-let precioPorIngrediente = cantidadIngredientes * 20
-
-function calcularTotal(precio, ingredientes) {
-    total = precio + ingredientes
-}
-calcularTotal(precio,precioPorIngrediente)
-
-alert("El precio de la hamburgesa sería: $ "+total)
